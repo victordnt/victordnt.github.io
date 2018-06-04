@@ -67,7 +67,6 @@
                     alert("You Win!!1!")
                     this.finishGame();
                 }
-                monsterAttack();
             },
             you(){
                 if (this.you<=0){
@@ -92,25 +91,38 @@
                 this.monster = 100;
                 this.isGameOn=!this.isGameOn;
                 this.logs=[];
+                console.log(this.you)
             },
             logThat(message,wasGood,wasPlayer){
                 this.logs.push({message: message, color: wasGood?'green':'#FF7F27', wasPlayer: wasPlayer})
             },
             attack(){
-                this.monster -= Math.ceil(Math.random()*20);
-                this.logThat("you attacked the monster",true,true)
+                let damage = Math.ceil(Math.random() * 20)
+                this.monster -= damage;
+                this.logThat("you attacked the monster -"+damage+" health",true,true)
+                this.monsterAttack();
             },
             spAttack(){
                 if(Math.random()*10>4) {
-                    this.monster -= Math.ceil(Math.random() * 20) + 25;
-                    this.logThat("you gave a special attack to the monster!", true,true)
+                    let damage = Math.ceil(Math.random() * 20) + 25;
+                    this.monster -= damage
+                    this.logThat("you gave a special attack to the monster! -"+damage+" health", true,true)
                 }else {
-                    this.logThat("you missed the special attack", false,true)
+                    this.logThat("you missed the special attack -0 health", false,true)
                 }
+                this.monsterAttack();
             },
             heal(){
-                this.player+= 15;
+                let damage = Math.ceil(Math.random() * 20) + 25
+                this.you += damage;
+                this.logThat("you healed! +"+damage+" health",true,true);
+                this.monsterAttack();
             },
+            monsterAttack(){
+                let damage =Math.ceil(Math.random() * 20) + 10;
+                this.you-=damage;
+                this.logThat("Monster attacked you! -"+damage+" health")
+            }
         }
     })
 </script>
