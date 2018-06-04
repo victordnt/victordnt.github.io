@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width:you+'%'}">
+                    <p style="padding: 8px;">{{you}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns" >
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width:monster+'%'}">
+                    <p style="padding: 8px;">{{monster}}</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section class="row controls"v-if="!isGameOn">
+        <div class="small-12 columns" >
+            <button id="start-game" @click="startGame()">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls" v-else>
+        <div class="small-12 columns">
+            <button id="attack" @click="attack()">ATTACK</button>
+            <button id="special-attack"@click="spAttack()">SPECIAL ATTACK</button>
+            <button id="heal" @click="heal()">HEAL</button>
+            <button id="give-up" @click="finishGame()">GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log">
+        <div class="small-12 columns" >
+            <ul>
+                <li v-for="log in logs" :class="{'player-turn': log.wasPlayer, 'monster-turn': !log.wasPlayer}" :style="{color: log.color}">
+                    {{log.message | upperCase}}
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            isGameOn: false,
+            you: 100,
+            monster: 100,
+            logs:[]
+        },
+        computed: {},
+        watch:{
+            monster(){
+                if (this.monster<=0){
+                    this.monster = 0;
+                    alert("You Win!!1!")
+                    this.finishGame();
+                }
+                monsterAttack();
+            }
+            you(){
+                if (this.you<=0){
+                    this.you = 0;
+                    alert("You Lose! :'(")
+                    this.finishGame();
+                }else if(this.you>100)
+                    this.you=100;
+            }
+        },
+        filters:{
+          upperCase(val){
+              return val.toUpperCase();
+          }
+        },
+        methods:{
+            startGame(){
+                this.isGameOn=!this.isGameOn;
+            },
+            finishGame(){
+                this.you = 100;
+                this.monster = 100;
+                this.isGameOn=!this.isGameOn;
+                this.logs=[];
+            },
+            logThat(message,wasGood,wasPlayer){
+                this.logs.push({message: message, color: wasGood?'green':'#FF7F27', wasPlayer: wasPlayer})
+            },
+            attack(){
+                this.monster -= Math.ceil(Math.random()*20);
+                this.logThat("you attacked the monster",true,true)
+            },
+            spAttack(){
+                if(Math.random()*10>4) {
+                    this.monster -= Math.ceil(Math.random() * 20) + 25;
+                    this.logThat("you gave a special attack to the monster!", true,true)
+                }else {
+                    this.logThat("you missed the special attack", false,true)
+                }
+            },
+            heal(){
+                this.player+= 15;
+            },
+        }
+    })
+</script>
+</body>
+</html>
