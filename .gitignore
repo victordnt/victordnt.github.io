@@ -69,3 +69,6 @@ fabric.properties
 .DS_Store
 
 # End of https://www.gitignore.io/api/webstorm
+/.idea/
+*/.idea/*
+/.idea/*
