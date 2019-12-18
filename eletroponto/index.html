@@ -16,29 +16,51 @@
     </div>
     <form @submit.prevent="guardaTempo()">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                                              <span class="input-group-text" id="descHora">
-                                                  <i class="material-icons">alarm</i>
-                                              </span>
+                            <span id="totalConclusao" class="input-group-text">
+                                <i class="material-icons">notifications_active</i> Tempo Total
+                            </span>
+                        </div>
+                        <input type="time" class="form-control hora" name="totalConclusao" v-model="totalConclusao">
+                    </div>
+                    <small class="form-text text-muted">será considerado 8:00 caso campo estiver vazio</small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="deschora">
+                                <p>
+                                    <i class="material-icons">schedule</i> 
+                                    Ponto
+                                </p>
+                            </span>
                         </div>
                         <input class="form-control hora"
-                               aria-describedby="descHora"
+                               aria-describedby="deschora"
                                type="time"
                                name="hora"
                                v-model="hora">
-                        <div class="input-group-append">
-                            <input type="submit"
-                                   value="Adicionar Ponto">
-                        </div>
-                        <div class="input-group-append">
-                            <input type="button"
-                                   @click="resetaValores"
-                                   value="Limpar">
-                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col md-4">
+                <div class="form-group">
+                    <input type="submit"
+                           class="btn btn-primary btn-lg"
+                           value="Adicionar">
+                    <input type="button"
+                           class="btn btn-primary btn-lg"
+                           @click="resetaValores"
+                           value="Limpar">
                 </div>
             </div>
         </div>
@@ -49,22 +71,23 @@
             </th>
             <th v-if="pontos.length % 2 ===1">Agora</th>
             <th v-if="pontos.length > 0">Tempo Trabalhado</th>
+            <th v-if="pontos.length > 0">Banco de Horas</th>
         </tr>
         <tr>
             <td v-for="ponto in pontos">{{ponto}}</td>
             <td v-if="pontos.length % 2 ===1">{{horaAgora}}</td>
             <td v-if="pontos.length > 0">{{horaFim}}</td>
+            <td v-if="pontos.length > 0">{{diferencaTempo(totalConclusao,horaFim)}}</td>
         </tr>
     </table>
-    <br><br><br><br><br>
-<!--    <pre>-->
-<!--        hora: {{hora}}-->
-<!--        pontos:{{pontos}}-->
-<!--        horaAgora:{{horaAgora}}-->
-<!--        agora:{{agora}}-->
-<!--        entradas:{{entradas}}-->
-<!--        saidas:{{saidas}}-->
-<!--    </pre>-->
+    <!--    <pre>-->
+    <!--        hora: {{hora}}-->
+    <!--        pontos:{{pontos}}-->
+    <!--        horaAgora:{{horaAgora}}-->
+    <!--        agora:{{agora}}-->
+    <!--        entradas:{{entradas}}-->
+    <!--        saidas:{{saidas}}-->
+    <!--    </pre>-->
 </div>
 <script src="index.js"></script>
 </body>

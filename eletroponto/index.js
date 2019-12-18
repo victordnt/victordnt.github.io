@@ -2,6 +2,7 @@ var app = new Vue({
     el: "#app",
     data: {
         hora: "",
+        totalConclusao: "08:00",
         pontos: [],
         entradas: [],
         saidas: [],
@@ -81,11 +82,16 @@ var app = new Vue({
 
             hora = fim[0] - inicio[0];
             minuto = fim[1] - inicio[1];
-            if (minuto < 0){
+
+            if (minuto < 0 && hora < 0){
+                minuto -= minuto*2;
+            }else if (minuto < 0){
                 hora--;
                 minuto += 60;
             }
-
+            if (hora==null || minuto==null){
+                return "-"
+            }
             hora = ((hora < 10 && hora > 0) ? "0" + hora : hora);
             minuto = ((minuto < 10) ? "0" + minuto : minuto);
             return hora + ":" + minuto;
@@ -122,6 +128,9 @@ var app = new Vue({
         if (localStorage.horaSaida){
             this.horaSaida = localStorage.horaSaida;
         }
+        if (localStorage.totalConclusao){
+            this.totalConclusao = localStorage.totalConclusao;
+        }
 
     },
     watch: {
@@ -139,6 +148,9 @@ var app = new Vue({
         },
         horaSaida(horaSaida){
             localStorage.horaSaida = horaSaida;
+        },
+        totalConclusao(totalConclusao){
+            localStorage.totalConclusao = totalConclusao;
         },
     },
 });
