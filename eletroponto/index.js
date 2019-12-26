@@ -1,3 +1,4 @@
+// import moment from './moment.min'
 var app = new Vue({
     el: "#app",
     data: {
@@ -27,17 +28,14 @@ var app = new Vue({
             entradas = this.entradas;
             saidas = this.saidas;
             if (this.pontos.length > 2){
+                entradas = this.entradas.reduce((a, b) => {
+                    return this.somaTempo(a, b);
+                });
                 if (this.pontos.length % 2 === 0){
-                    entradas = this.entradas.reduce((a, b) => {
-                        return this.somaTempo(a, b);
-                    });
                     saidas = this.saidas.reduce((a, b) => {
                         return this.somaTempo(a, b);
                     });
                 } else {
-                    entradas = this.entradas.reduce((a, b) => {
-                        return this.somaTempo(a, b);
-                    });
                     saidas = this.saidas.reduce((a, b) => {
                         return this.somaTempo(a, b);
                     }, this.horaAgora);
@@ -45,7 +43,7 @@ var app = new Vue({
                 this.horaSaida = this.diferencaTempo(entradas, saidas);
             } else if (this.pontos.length == 1)
                 this.horaSaida = this.diferencaTempo(entradas[0], this.horaAgora);
-            else if (this.pontos.length == 2)
+            else if (this.pontos.length == 0)
                 this.horaSaida = this.diferencaTempo(entradas[0], saidas[0]);
             return this.horaSaida;
 
@@ -79,37 +77,31 @@ var app = new Vue({
         diferencaTempo(inicio, fim){
             inicio = inicio.split(":");
             fim = fim.split(":");
-
-            hora = fim[0] - inicio[0];
-            minuto = fim[1] - inicio[1];
-
-            if (minuto < 0 && hora < 0){
-                minuto -= minuto*2;
-            }else if (minuto < 0){
-                hora--;
-                minuto += 60;
-            }
-            if (hora==null || minuto==null){
-                return "-"
-            }
-            hora = ((hora < 10 && hora > 0) ? "0" + hora : hora);
-            minuto = ((minuto < 10) ? "0" + minuto : minuto);
-            return hora + ":" + minuto;
+            let horaInicio = moment.duration()
+                .add(Number(inicio[0]),'hours')
+                .add(Number(inicio[1]),'minutes');
+            let horaFim = moment.duration()
+                .add(Number(fim[0]),'hours')
+                .add(Number(fim[1]),'minutes');
+            let res = moment.duration().add(horaFim).subtract(horaInicio);
+            
+            return this.formataTempo(res);
         },
         somaTempo(inicio, fim){
             inicio = inicio.split(":");
             fim = fim.split(":");
+            let horaInicio = moment.duration().add(Number(inicio[0]),'hours').add(Number(inicio[1]),'minutes');
+            let horaFim = moment.duration().add(Number(fim[0]),'hours').add(Number(fim[1]),'minutes');
+            let res = moment.duration().add(horaInicio).add(horaFim);
 
-            hora = parseInt(fim[0]) + parseInt(inicio[0]);
-            minuto = parseInt(fim[1]) + parseInt(inicio[1]);
-            if (minuto > 60){
-                hora++;
-                minuto -= 60;
-            }
-
+            return this.formataTempo(res);
+        },
+        formataTempo(tempo){
+            let hora = Math.floor(Math.abs(tempo.asHours()));
+            let minuto = Math.abs(tempo.minutes());
             hora = ((hora < 10) ? "0" + hora : hora);
             minuto = ((minuto < 10) ? "0" + minuto : minuto);
-            return hora + ":" + minuto;
+            return ((tempo.minutes()<0 || tempo.asHours()<0)?"-":"+") + hora + ":" + minuto;
         },
     },
     mounted(){
