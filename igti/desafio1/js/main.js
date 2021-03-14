@@ -5,11 +5,11 @@ var divRole;
 var rowEmployee;
 
 async function getRoles() {
-    this.roles = await (await fetch("http://localhost:3000/roles")).json();
+    this.roles = await (await fetch("https://mockend.com/victordnt/victordnt.github.io/roles")).json();
 }
 
 async function getEmployees() {
-    let employees = await (await fetch('http://localhost:3000/employees')).json();
+    let employees = await (await fetch('https://mockend.com/victordnt/victordnt.github.io/employees')).json();
     this.employees = employees;
 }
 
