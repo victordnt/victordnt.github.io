@@ -5,11 +5,11 @@ var divRole;
 var rowEmployee;
 
 async function getRoles() {
-    this.roles = await (await fetch("https://mockend.com/victordnt/victordnt.github.io/roles")).json();
+    this.roles = await (await fetch("https://604e23ef2a808e0017784a00.mockapi.io/api/roles")).json();
 }
 
 async function getEmployees() {
-    let employees = await (await fetch('https://mockend.com/victordnt/victordnt.github.io/employees')).json();
+    let employees = await (await fetch('https://604e23ef2a808e0017784a00.mockapi.io/api/employees')).json();
     this.employees = employees;
 }
 
