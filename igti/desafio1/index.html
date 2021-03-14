@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Fira+Sans&display=swap" rel="stylesheet">
+    <script src="js/main.js" defer="true" async="false"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="options">
+            <h1>Options</h1>
+            <label for="filtro" class="order">
+                Sort by
+            </label>
+            <select name="filtro" id="order">
+                <option value="0">Name (ascending)</option>
+                <option value="1">Name (descending)</option>
+                <option value="2">Salary (ascending)</option>
+                <option value="3">Salary (descending)</option>
+            </select>
+            <fieldset class="filterRoles">
+                <legend>Filter by roles</legend>
+                <div id="filters">
+                    <div><input class="role" type="checkbox"><label></label></div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="employees">
+            <h1>Employees (<span id="total"></span>)</h1>
+            <table>
+                <thead>
+                    <tr class="head">
+                        <th><span>ID</span></th>
+                        <th><span>Name</span></th>
+                        <th><span>Role</span></th>
+                        <th class="ta-left"><span>Salary</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="id"></td>
+                        <td class="name"></td>
+                        <td class="role"></td>
+                        <td class="salary ta-left"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

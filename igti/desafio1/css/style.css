@@ -1,0 +1,122 @@
+:root {
+    --ft-primary: 'Bree Serif', serif;
+    --ft-secondary: 'Fira Sans', sans-serif;
+    --bg-c-main: #b6b6b6;
+    --bg-c-page: #f0f0f0;
+    --underline: 2px solid rgba(0, 0, 0, 0.329);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+th{
+    font-family: var(--ft-primary);
+    font-size: 1.5rem;
+    text-align: start;
+    position: sticky;
+    top: -2vh;
+    background-color: #fff;
+    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.329);
+    padding-top: 2vh;
+}
+
+td{
+    padding-block: .8rem;
+}
+
+html {
+    background-color: var(--bg-c-main);
+    font-family: var(--ft-secondary);
+    font-size: 1em;
+
+}
+
+input[type="checkbox"] {
+    margin-inline: .5rem;
+}
+
+legend,
+h2 {
+    margin: .5rem 1rem;
+}
+
+.page :is(h1, h2, h3) {
+    font-family: var(--ft-primary);
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+
+.page {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    min-height: 94vh;
+    margin-block: 3vh;
+}
+
+.page>div {
+    box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.493);
+    background-color: var(--bg-c-page);
+    padding: 2vh 2vw;
+}
+
+.page select {
+    background-color: transparent;
+    border-bottom: var(--underline);
+    margin-block: .25rem .8rem;
+    font-family: var(--ft-secondary);
+    font-size: 1em;
+
+}
+
+.options {
+    order: 0;
+    flex-basis: 25%;
+}
+
+.employees {
+    display: flex;
+    flex-flow: column nowrap;
+    order: 1;
+    flex-basis: 60%;
+    align-self: stretch;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.employees table{
+    flex-basis: 100%;
+}
+.employees th {
+    background-color: var(--bg-c-page);
+}
+.filterRoles{
+    display: flex;
+    flex-flow: row wrap;
+    border: var(--underline);
+    width: 100%;
+    justify-content: space-around;
+}
+
+.filterRoles #filters div  {
+    flex-basis: 100%;
+    display: flex;
+    margin-block: .25rem;
+}
+
+#filters{
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: space-around;
+}
+.ta-left{
+    text-align: end;
+}
