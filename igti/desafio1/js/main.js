@@ -6,11 +6,14 @@ var rowEmployee;
 
 async function getRoles() {
     this.roles = await (await fetch("https://604e23ef2a808e0017784a00.mockapi.io/api/roles")).json();
+    console.log(roles)
 }
 
 async function getEmployees() {
     let employees = await (await fetch('https://604e23ef2a808e0017784a00.mockapi.io/api/employees')).json();
+    console.log(employees)
     this.employees = employees;
+
 }
 
 function renderRoles() {
@@ -40,7 +43,7 @@ async function renderEmployees() {
         row.querySelector('td.id').innerText = employee.id;
         row.querySelector('td.name').innerText = employee.name;
         row.querySelector('td.salary').innerText = `R$ ${employee.salary.toString().slice(0,-3)?employee.salary.toString().slice(0,-3)+'.':''}${employee.salary.toString().slice(-3)},00`
-        row.querySelector('td.role').innerText = roles.filter(role => role.id === employee['role_id']).map(role => role.name)[0];
+        row.querySelector('td.role').innerText = roles.filter(role => role.id === employee['role_id'].toString()).map(role => role.name)[0];
         return row;
     }).forEach(row => tbody.appendChild(row))
     document.getElementById('total').innerText = this.employees.length;
