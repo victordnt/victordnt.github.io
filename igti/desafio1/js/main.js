@@ -25,7 +25,8 @@ function renderRoles() {
         let checkbox = divElement.querySelector('input.role');
         let label = divElement.querySelector('label');
         label.setAttribute('for', role.id);
-        checkbox.setAttribute('name', role.id);
+        checkbox.setAttribute('name', "role");
+        checkbox.setAttribute('id', role.id);
         label.innerText = role.name;
         return divElement;
     }).forEach(div => {
